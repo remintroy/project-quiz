@@ -1,3 +1,3 @@
 # project-quiz
 
-Quiz & Learning application for developers
+Quiz & Learning application for new developers
