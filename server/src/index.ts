@@ -1,6 +1,7 @@
 import dotEnv from "dotenv";
 import Express from "express";
 import path from "path";
+import * as db from "./services/mongoDb";
 
 import AuthRouter from "./router/auth";
 import { authInit } from "./services/auth";
@@ -50,3 +51,17 @@ app.use((req, res) => {
 app.listen(`${appConfig.port}`, () => {
   console.log(`[-] Server started on port ${appConfig.port}`);
 });
+
+// test to get data base in sync
+const testGetData = async () => {
+  // const dataF = {
+  //   name: "sample user",
+  //   phone: "792434774349",
+  // };
+  // const uploded =  new db.users(dataF);
+  // uploded.save();
+
+  const data = await db.users.find();
+  console.log(data);
+};
+testGetData();
