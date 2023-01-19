@@ -14,7 +14,7 @@ const appConfig = {
 app.get(`${appConfig.baseUrl}/`, (req, res) => {
   res.send({
     "SERVER":"Hi from server",
-    
+    "SHUHAIB":"HABEEBYYY"
   });
 });
 
