@@ -12,7 +12,10 @@ const appConfig = {
 };
 
 app.get(`${appConfig.baseUrl}/`, (req, res) => {
-  res.send(`<h1>Hai from sreedev</h1>`);
+  res.send({
+    "SERVER":"Hi from server",
+    
+  });
 });
 
 app.listen(`${appConfig.port}`, () => {
