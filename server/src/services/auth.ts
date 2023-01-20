@@ -4,13 +4,13 @@ import randomID from "random-id";
 import dotEnv from "dotenv";
 import { RequestDefention } from "../defeniton";
 import { NextFunction, Response } from "express";
+import { createError } from "./util";
 import * as db from "./mongoDb";
 
 // config env
 dotEnv.config();
 
-
-// verify access token 
+// verify access token
 export const validateAccessToken = (accessTocken: string) => {
   return new Promise((resolve, reject) => {
     jwt.verify(accessTocken, process.env.ACCESS_TOKEN_SECRET, (err, data) => {
@@ -70,10 +70,11 @@ export const getNewAccessTocken = async (refreshToken: string) => {
     return generateAccessToken(payload);
   } catch (error) {
     // error handling
-    throw error;
+    throw createError(400, error);
   }
 };
 
+// function that runs on every request
 export const authInit = async (
   req: RequestDefention,
   res: Response,
@@ -93,12 +94,14 @@ export const authInit = async (
       { password: 0, _id: 0 }
     );
 
+    // check for blocked user
+    if (req.user.isBlocked) throw "This user is blocked user";
     // check if this is an admin account
     if (req.user?.admin) req.admin = req.user;
   } catch (error) {
     // error handling
     req.user = null;
-    console.log(error);
+    // console.log(error);
   }
   next();
 };
@@ -142,6 +145,10 @@ const createUserID = async () => {
     // return newely created user id;
     return userID;
   } catch (error) {
-    throw error;
+    throw createError(400, error);
   }
+};
+
+export const createUser = ({ email, name, phone, type }) => {
+   
 };

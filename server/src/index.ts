@@ -1,7 +1,6 @@
 import dotEnv from "dotenv";
 import Express from "express";
 import path from "path";
-import * as db from "./services/mongoDb";
 
 import AuthRouter from "./router/auth";
 import { authInit } from "./services/auth";
@@ -31,7 +30,7 @@ app.use(authInit);
 // authentication routes
 app.use(path.join(appConfig.baseUrl, "/auth"), AuthRouter);
 
-app.get(path.join(appConfig.baseUrl, "/"), (req, res) => {
+app.get(path.join(appConfig.baseUrl, "/credits"), (req, res) => {
   res.send({
     SERVER: "Hi from server",
     SHUHAIB: "HABEEBYYY",
@@ -52,16 +51,4 @@ app.listen(`${appConfig.port}`, () => {
   console.log(`[-] Server started on port ${appConfig.port}`);
 });
 
-// test to get data base in sync
-const testGetData = async () => {
-  // const dataF = {
-  //   name: "sample user",
-  //   phone: "792434774349",
-  // };
-  // const uploded =  new db.users(dataF);
-  // uploded.save();
 
-  const data = await db.users.find();
-  console.log(data);
-};
-testGetData();
