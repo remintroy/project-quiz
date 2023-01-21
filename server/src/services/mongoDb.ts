@@ -32,6 +32,12 @@ export const users = db.model(
       type: Date,
       default: new Date(),
     },
+    preferences: {
+      type: Object,
+      default: {
+        languages: [],
+      },
+    },
   })
 );
 
