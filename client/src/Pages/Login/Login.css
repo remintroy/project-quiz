@@ -1,3 +1,66 @@
 .LoginPage {
-  background-color: red;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.LoginPage .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box;
+  padding: 15px;
+  max-width: 450px;
+}
+.LoginPage .container input {
+  padding: 20px;
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid rgb(173, 173, 173);
+  outline: none;
+  border-radius: 5px;
+}
+.LoginPage .container input:nth-child(2) {
+  margin: 10px 0;
+}
+.LoginPage .container button {
+  padding: 20px;
+  box-sizing: border-box;
+  width: 100%;
+  border: none;
+  background-color: var(--themeColor);
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+.LoginPage .container .or {
+  width: 100%;
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto 20px auto;
+  gap: 20px;
+}
+.LoginPage .container .or span {
+  text-align: center;
+}
+.LoginPage .container .providers {
+  width: 100%;
+}
+.LoginPage .container .providers img {
+  width: 25px;
+}
+.LoginPage .container .providers .g {
+  background-color: white;
+  border: 1px solid rgb(173, 173, 173);
+  color: black;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  padding: 15px;
+  margin-bottom: 10px;
 }/*# sourceMappingURL=Login.css.map */
