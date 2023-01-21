@@ -1,6 +1,7 @@
 import dotEnv from "dotenv";
 import Express from "express";
 import path from "path";
+import cors from "cors";
 
 import AuthRouter from "./router/auth";
 import { authInit } from "./services/auth";
@@ -18,11 +19,11 @@ const appConfig = {
   baseUrl: "",
 };
 
+app.use(cors());
+app.use(Express.json());
+
 // serving files on public folder
-app.use(
-  path.join(appConfig.baseUrl, "/"),
-  Express.static(path.join(process.cwd(), "public"))
-);
+app.use(path.join(appConfig.baseUrl, "/"), Express.static(path.join(process.cwd(), "public")));
 
 // initialized authentication state in every requiest
 app.use(authInit);
@@ -42,7 +43,7 @@ app.use((req, res) => {
   // 404 messaage
   res.status(404);
   res.send({
-    status: "error",
+    error: true,
     message: "The service you are looking for is not found on this server",
   });
 });
@@ -51,4 +52,4 @@ app.listen(`${appConfig.port}`, () => {
   console.log(`[-] Server started on port ${appConfig.port}`);
 });
 
-
+// Created by \u0052\u0045\u004D\u0049\u004E
