@@ -13,18 +13,12 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.post("/signup", async (req, res) => {
+app.post("/signin", async (req, res) => {
   try {
-    // type of signup
-    const { type } = req.query;
-
-    // validation...
-    if (!type) throw createError(400, "Type of login is not specified");
-
     // creates user
     const resData = {
       error: false,
-      data: await Auth.signUpUser(req.body, type + ""),
+      data: await Auth.signInUser(req.body),
     };
 
     // sending response

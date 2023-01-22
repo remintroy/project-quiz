@@ -16,17 +16,47 @@
         padding: 15px;
         max-width: 450px;
 
+        .dispState {
+            padding: 15px 25px;
+            background-color: rgb(240, 240, 255);
+            border-radius: 5px;
+            text-transform: capitalize;
+        }
+
+        .dispState.err{
+            background-color: rgb(255, 235, 235);
+        }
+
         input {
             padding: 20px;
             box-sizing: border-box;
             width: 100%;
-            border: 1px solid rgb(173, 173, 173);
+            border: 1px solid #adadad;
             outline: none;
             border-radius: 5px;
         }
 
+        input:focus {
+            border-color: blue;
+        }
+
+        input.err {
+            border-color: red;
+        }
+
         input:nth-child(2) {
             margin: 10px 0;
+        }
+
+        p {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding: 10px 5px 25px 5px;
+
+            span {
+                cursor: pointer;
+            }
         }
 
         button {
@@ -38,6 +68,10 @@
             border-radius: 5px;
             color: white;
             font-weight: bold;
+            cursor: pointer;
+        }
+
+        .signup {
             cursor: pointer;
         }
 

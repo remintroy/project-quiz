@@ -7,6 +7,7 @@ import { NextFunction, Response } from "express";
 import { createError } from "./util";
 import * as db from "./mongoDb";
 import validator from "validator";
+import { verifyIdToken } from "./Firebase";
 
 // config env
 dotEnv.config();
@@ -124,6 +125,20 @@ const createUserID = async () => {
   }
 };
 
+// login user if exist or create new user
+export const signInUser = async ({ idToken }: { idToken: string }) => {
+  try {
+    // verfy idToken and retrive userData from firebase
+    const userDataFromFirebase = await verifyIdToken({ idToken });
+
+    // TODO: continue signup
+    console.log(userDataFromFirebase)
+  } catch (error) {
+    // error signup user
+    console.log(error);
+  }
+};
+
 const createUserWithEmail = async ({ email, password, name }: { email: string; password: string; name: string }) => {
   //
   try {
@@ -200,53 +215,3 @@ const createUserWithEmail = async ({ email, password, name }: { email: string; p
     throw error;
   }
 };
-
-// TODO: 
-const signInUserWithGoogle = async ({ tokenId: string }) => {
-  console.log("google");
-};
-
-// TODO:
-const signInUserWithGithub = async ({ tokenId: string }) => {
-  console.log("github");
-};
-
-// signup user with email and password
-export const signUpUser = async (body: any, type: string) => {
-  try {
-    // type of login adn curresponding actions
-    const actions = {
-      email: createUserWithEmail,
-      google: signInUserWithGoogle,
-      github: signInUserWithGithub,
-    };
-
-    // getting curresponding funciton
-    const currentAction = actions[type.trim()];
-
-    if (!currentAction) throw createError(400, "Invaid authentication type");
-
-    return currentAction(body);
-    //...
-  } catch (error) {
-    throw error;
-  }
-};
-
-const test = async () => {
-  try {
-    const data = await signUpUser(
-      {
-        name: "sample Name",
-        email: "abc@gmail.com",
-        password: "samplePsw",
-      },
-      "email"
-    );
-    console.log(data);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-// test();

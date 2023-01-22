@@ -5,6 +5,15 @@ initializeApp({
   credential: applicationDefault(),
 });
 
-export const signinWithGoogle = async ({ tokenId }) => {
-  return "hai from google";
+// verify idToken and return user data
+export const verifyIdToken = async ({ idToken }: { idToken: string }) => {
+  try {
+    // gets uid from idToken
+    const uid = (await getAuth().verifyIdToken(idToken)).uid;
+    // gets userData from uid and return it
+    return await getAuth().getUser(uid);
+  } catch (error) {
+    // error handling
+    throw error;
+  }
 };
