@@ -19,6 +19,7 @@
   background-color: rgb(240, 240, 255);
   border-radius: 5px;
   text-transform: capitalize;
+  text-align: center;
 }
 .LoginPage .container .dispState.err {
   background-color: rgb(255, 235, 235);

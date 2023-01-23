@@ -16,14 +16,16 @@
         padding: 15px;
         max-width: 450px;
 
+
         .dispState {
             padding: 15px 25px;
             background-color: rgb(240, 240, 255);
             border-radius: 5px;
             text-transform: capitalize;
+            text-align: center;
         }
 
-        .dispState.err{
+        .dispState.err {
             background-color: rgb(255, 235, 235);
         }
 

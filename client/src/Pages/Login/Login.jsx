@@ -8,6 +8,8 @@ import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 
 import { authConfig } from "../../Services/Firebase";
 import { useRef } from "react";
 import { backend } from "../../Services/Axios";
+import { useContext } from "react";
+import LoaderFullPage from "../../context/LoaderFullPage";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -16,11 +18,14 @@ function Login() {
   const [statusDisplay, setStatusDisplay] = useState({
     show: true,
     error: false,
-    message: "Hi, Do I know Your? Lets see...",
+    message: "Hi, Do I know You? Lets see...",
   });
 
   const passwordInput = useRef("");
   const emailInput = useRef("");
+
+  // main loader componet methords
+  const loader = useContext(LoaderFullPage);
 
   const navigate = useNavigate();
 
@@ -75,7 +80,13 @@ function Login() {
 
   const submitToServer = async ({ _tokenResponse: { idToken } }) => {
     try {
-      // eslint-disable-next-line
+      // success response
+      setStatusDisplay({
+        error: false,
+        show: true,
+        message: "Connecting to server",
+      });
+      // request to server and getting token response from server
       const {
         data: { accessToken, refreshToken },
       } = await backend.post("/auth/signin", { idToken: idToken });
@@ -93,6 +104,7 @@ function Login() {
       // ...
     } catch (errorResponse) {
       // handling error
+
       const {
         response: {
           data: { error },
@@ -108,10 +120,17 @@ function Login() {
     }
   };
 
+  const showLoading = () => {
+    loader.showFullPageLoader();
+    setTimeout(() => {
+      loader.hideFullPageLoader();
+    }, 5000);
+  };
+
   return (
     <div className="LoginPage">
       <div className="container">
-        <h1>Welcome back</h1>
+        <h1 onClick={(e) => showLoading()}>Welcome back</h1>
         <div className="inputCont">
           {statusDisplay.show && (
             <div className={`dispState ${statusDisplay.error ? "err" : ""}`}>{statusDisplay.message}</div>
