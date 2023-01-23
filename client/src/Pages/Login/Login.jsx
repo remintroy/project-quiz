@@ -76,7 +76,9 @@ function Login() {
   const submitToServer = async ({ _tokenResponse: { idToken } }) => {
     try {
       // eslint-disable-next-line
-      const response = await backend.post("/auth/signin", { idToken: idToken });
+      const {
+        data: { accessToken, refreshToken },
+      } = await backend.post("/auth/signin", { idToken: idToken });
 
       // success response
       setStatusDisplay({
@@ -84,7 +86,10 @@ function Login() {
         show: true,
         message: "Login success",
       });
-      // TODO : save response token's to local storage
+
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+      // TODO: Login complete Send user to desired page...
       // ...
     } catch (errorResponse) {
       // handling error
