@@ -1,6 +1,4 @@
 import jwt from "jsonwebtoken";
-import bCrypt from "bcryptjs";
-import randomID from "random-id";
 import dotEnv from "dotenv";
 import { RequestDefention } from "../defeniton";
 import { NextFunction, Response } from "express";
@@ -108,110 +106,71 @@ export const mustLoginAsUser = async (req: RequestDefention, res: Response, next
   }
 };
 
-// create user id
-const createUserID = async () => {
-  try {
-    let userID = "";
-
-    do {
-      userID = randomID(20, "A0");
-      // check for existing user with new user id
-    } while ((await db.users.find({ uid: userID })).length > 0);
-
-    // return newely created user id;
-    return userID;
-  } catch (error) {
-    throw createError(500, "Error creating user id");
-  }
-};
-
 // login user if exist or create new user
 export const signInUser = async ({ idToken }: { idToken: string }) => {
   try {
+    // validating idToken
+    if (!validator.isJWT(idToken + "")) throw createError(400, "Invalid idToken");
+
     // verfy idToken and retrive userData from firebase
     const userDataFromFirebase = await verifyIdToken({ idToken });
 
-    // TODO: continue signup
-    console.log(userDataFromFirebase)
-  } catch (error) {
-    // error signup user
-    console.log(error);
-  }
-};
-
-const createUserWithEmail = async ({ email, password, name }: { email: string; password: string; name: string }) => {
-  //
-  try {
-    name = name.trim();
-    email = email.trim();
-    password = password.trim();
-
-    // validating inputs
-    if (!validator.isEmail(email)) throw createError(400, "Invalid email");
-    if (password.length == 0) throw createError(400, "Password is requied");
-    if (password.length < 6) throw createError(400, "Password must contain 6 character's");
-    if (!/^[a-zA-Z]+ [a-zA-Z]+$/.test(name) || /^[a-zA-Z]+[a-zA-Z]$/.test(name))
-      throw createError(400, "Enter a valid name");
-
-    // ---- CREATING USER -----
     let existingData: object;
     try {
       // check for existing data
-      existingData = await db.users.findOne({ email: email });
+      existingData = await db.users.findOne({ uid: userDataFromFirebase.uid });
     } catch (error) {
       // error
-      throw createError(500, "Faild to fetch nessory data");
+      throw createError(500, "Faild to fetch user data");
     }
 
-    // user exist
-    if (existingData) throw createError(400, "Account with this email already exists");
+    if (!existingData) {
+      // if user not exist create new user
+      const newUserData = {
+        uid: userDataFromFirebase.uid,
+        name: userDataFromFirebase.displayName,
+        email: userDataFromFirebase.email,
+        provider: userDataFromFirebase.providerData[0].providerId,
+        createdAt: userDataFromFirebase.metadata.creationTime,
+        lastLogin: userDataFromFirebase.metadata.lastSignInTime,
+        lastRefresh: userDataFromFirebase.metadata.lastRefreshTime,
+        photoURL: userDataFromFirebase.photoURL,
+        phone: userDataFromFirebase.phoneNumber,
+        disabled: userDataFromFirebase.disabled,
+      };
 
-    try {
-      // creating passowrd hash
-      password = await bCrypt.hash(password, 10);
-    } catch (error) {
-      throw createError(500, "Error creating account");
-    }
+      // user object
+      const newUser = new db.users(newUserData);
 
-    const newUserData = {
-      name,
-      email,
-      password,
-      uid: await createUserID(),
-    };
-
-    // user object
-    const newUser = new db.users(newUserData);
-
-    try {
-      // saves new user data to db
-      await newUser.save();
-    } catch (error) {
-      throw createError(500, "Error creating user");
+      try {
+        // saves new user data to db
+        await newUser.save();
+      } catch (error) {
+        throw createError(500, "Error creating user");
+      }
     }
 
     // ----- TOKENS -----
     const tokensForUser: { accessToken: string; refreshToken: string } = { accessToken: null, refreshToken: null };
     try {
       // creates token's for new user
-      tokensForUser.accessToken = generateAccessToken({ uid: newUser.uid });
-      tokensForUser.refreshToken = generateRefreshToken({ uid: newUser.uid });
+      tokensForUser.accessToken = generateAccessToken({ uid: userDataFromFirebase.uid });
+      tokensForUser.refreshToken = generateRefreshToken({ uid: userDataFromFirebase.uid });
     } catch (error) {
-      throw createError(500, "User created but faild to login. Try to login after some time");
+      throw createError(500, `${existingData ? "" : "User created but "}Faild to login. Try to login after some time`);
     }
 
     try {
       // saves refresh token to db
-      await new db.refreshTockens({ value: tokensForUser.refreshToken, uid: newUser.uid }).save();
+      await new db.refreshTockens({ value: tokensForUser.refreshToken, uid: userDataFromFirebase.uid }).save();
     } catch (error) {
-      throw createError(500, "User created but faild to login. Try to login after some time");
+      throw createError(500, `${existingData ? "" : "User created but "}Faild to login. Try to login after some time`);
     }
 
     // user data and tokes successfully created
     return tokensForUser;
-    //..
   } catch (error) {
-    // handling error
+    // error signup user
     throw error;
   }
 };

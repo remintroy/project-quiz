@@ -16,15 +16,13 @@ app.get("/", async (req, res) => {
 app.post("/signin", async (req, res) => {
   try {
     // creates user
-    const resData = {
-      error: false,
-      data: await Auth.signInUser(req.body),
-    };
+    const resData = await Auth.signInUser(req.body);
 
     // sending response
-    res.send(resData);
+    res.send({ error: false, ...resData });
   } catch (error) {
-    res.send({ error: true, data: error });
+    res.status(error.code);
+    res.send({ error: true, ...error });
   }
 });
 

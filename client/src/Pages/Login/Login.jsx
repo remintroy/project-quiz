@@ -43,6 +43,11 @@ function Login() {
   const loginWithEmailHandler = async () => {
     try {
       resetAllInputColors();
+      setStatusDisplay({
+        error: false,
+        show: true,
+        message: "Loading...",
+      });
       const response = await signInWithEmailAndPassword(authConfig, email, password);
       submitToServer(response);
     } catch (error) {
@@ -55,6 +60,11 @@ function Login() {
   const loginWithGoogleHandler = async () => {
     try {
       resetAllInputColors();
+      setStatusDisplay({
+        error: false,
+        show: true,
+        message: "Loading...",
+      });
       const response = await signInWithPopup(authConfig, new GoogleAuthProvider());
       submitToServer(response);
     } catch (error) {
@@ -65,10 +75,31 @@ function Login() {
 
   const submitToServer = async ({ _tokenResponse: { idToken } }) => {
     try {
+      // eslint-disable-next-line
       const response = await backend.post("/auth/signin", { idToken: idToken });
-      console.log(response);
-    } catch (error) {
-      console.warn(error);
+
+      // success response
+      setStatusDisplay({
+        error: false,
+        show: true,
+        message: "Login success",
+      });
+      // TODO : save response token's to local storage
+      // ...
+    } catch (errorResponse) {
+      // handling error
+      const {
+        response: {
+          data: { error },
+        },
+      } = errorResponse;
+
+      // display error to user
+      setStatusDisplay({
+        error: true,
+        show: true,
+        message: error,
+      });
     }
   };
 

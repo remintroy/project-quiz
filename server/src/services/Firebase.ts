@@ -1,5 +1,6 @@
 import { initializeApp, applicationDefault } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
+import { createError } from "./util";
 
 initializeApp({
   credential: applicationDefault(),
@@ -14,6 +15,6 @@ export const verifyIdToken = async ({ idToken }: { idToken: string }) => {
     return await getAuth().getUser(uid);
   } catch (error) {
     // error handling
-    throw error;
+    throw createError(400, error.code?.split("/")[1]?.split("-")?.join(" "));
   }
 };

@@ -20,18 +20,17 @@ export const users = db.model(
   "users",
   new mongoose.Schema({
     name: String,
-    password: String,
+    provider: String,
     uid: String,
     email: String,
     img: String,
-    admin: {
-      type: Boolean,
-      default: false,
-    },
-    createdAt: {
-      type: Date,
-      default: new Date(),
-    },
+    photoURL: String,
+    phone: String,
+    disabled: { type: Boolean, default: false },
+    admin: { type: Boolean, default: false },
+    createdAt: { type: Date, default: new Date() },
+    lastLogin: { type: Date, default: new Date() },
+    lastRefresh: { type: Date, default: new Date() },
     preferences: {
       type: Object,
       default: {
