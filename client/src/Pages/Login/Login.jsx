@@ -10,6 +10,7 @@ import { useRef } from "react";
 import { backend } from "../../Services/Axios";
 import { useContext } from "react";
 import LoaderFullPage from "../../context/LoaderFullPage";
+import { useEffect } from "react";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -120,17 +121,35 @@ function Login() {
     }
   };
 
-  const showLoading = () => {
-    loader.showFullPageLoader();
-    setTimeout(() => {
-      loader.hideFullPageLoader();
-    }, 5000);
-  };
+  useEffect(() => {
+    window.addEventListener("online", (e) => console.log(e));
+    window.addEventListener("offline", (e) => console.log(e));
+
+    const innerfunction = async () => {
+      const response = await backend.get("/credits");
+      console.log(response);
+      // check tokens exist on localstorage
+      // request user data or extract user data
+      // show user that user is already login > logout to contiue
+      // show login page
+    };
+
+    innerfunction();
+  }, []);
 
   return (
     <div className="LoginPage">
+      <div className="ExistingUser ">
+        <img src="https://cdn-icons-png.flaticon.com/512/21/21104.png" alt="" />
+        <h2>Remin T Roy</h2>
+        <p>You are currently logged in as remin@gmail.com</p>
+        <div className="btnCont">
+          <button>Logout and continue</button>
+          <button>Go back to home page</button>
+        </div>
+      </div>
       <div className="container">
-        <h1 onClick={(e) => showLoading()}>Welcome back</h1>
+        <h1>Welcome back</h1>
         <div className="inputCont">
           {statusDisplay.show && (
             <div className={`dispState ${statusDisplay.error ? "err" : ""}`}>{statusDisplay.message}</div>

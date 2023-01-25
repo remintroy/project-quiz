@@ -2,6 +2,8 @@ import { useRef } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import LoaderFullPage from "./context/LoaderFullPage";
+import User from "./context/User";
+import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
 
 function App() {
@@ -17,27 +19,29 @@ function App() {
 
   return (
     <LoaderFullPage.Provider value={{ showFullPageLoader, hideFullPageLoader }}>
-      <div className="App">
-        <div className="loadingFullPage" ref={loader}>
-          <div className="banter-loader">
-            <div className="banter-loader__box"></div>
-            <div className="banter-loader__box"></div>
-            <div className="banter-loader__box"></div>
-            <div className="banter-loader__box"></div>
-            <div className="banter-loader__box"></div>
-            <div className="banter-loader__box"></div>
-            <div className="banter-loader__box"></div>
-            <div className="banter-loader__box"></div>
-            <div className="banter-loader__box"></div>
+      <User.Provider>
+        <div className="App">
+          <div className="loadingFullPage" ref={loader}>
+            <div className="banter-loader">
+              <div className="banter-loader__box"></div>
+              <div className="banter-loader__box"></div>
+              <div className="banter-loader__box"></div>
+              <div className="banter-loader__box"></div>
+              <div className="banter-loader__box"></div>
+              <div className="banter-loader__box"></div>
+              <div className="banter-loader__box"></div>
+              <div className="banter-loader__box"></div>
+              <div className="banter-loader__box"></div>
+            </div>
+            <h2>Team Quiz</h2>
           </div>
-          <h2>Team Quiz</h2>
-        </div>
 
-        <Routes>
-          <Route path="/" element={<h1>Home Page</h1>}></Route>
-          <Route path="/login" element={<Login />}></Route>
-        </Routes>
-      </div>
+          <Routes>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/login" element={<Login />}></Route>
+          </Routes>
+        </div>
+      </User.Provider>
     </LoaderFullPage.Provider>
   );
 }
