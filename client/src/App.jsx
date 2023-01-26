@@ -10,6 +10,7 @@ import Login from "./Pages/Login/Login";
 import { backend } from "./Services/Axios";
 
 function App() {
+  // constants
   const loader = useRef({});
   const [user, setUser] = useState(null);
 
