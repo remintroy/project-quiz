@@ -4,6 +4,7 @@ import path from "path";
 import cors from "cors";
 
 import AuthRouter from "./router/auth";
+import PagesRouter from "./router/Pages";
 import { authInit } from "./services/auth";
 
 // configuring env
@@ -30,6 +31,8 @@ app.use(authInit);
 
 // authentication routes
 app.use(path.join(appConfig.baseUrl, "/auth"), AuthRouter);
+// pages routes
+app.use(path.join(appConfig.baseUrl, "/"), PagesRouter);
 
 app.get(path.join(appConfig.baseUrl, "/credits"), (req, res) => {
   res.send({

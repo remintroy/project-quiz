@@ -36,8 +36,10 @@ export const validateRefreshToken = (accessTocken: string) => {
   });
 };
 
-export const generateAccessToken = (payload: object) => {
-  return jwt.sign({ ...payload, access: true }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 60 * 60 * 1000 });
+export const generateAccessToken = (payload: { uid: string }) => {
+  return jwt.sign({ uid: payload.uid, access: true }, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: "1m",
+  });
 };
 
 export const generateRefreshToken = (payload: object) => {
@@ -61,6 +63,7 @@ export const getNewAccessTocken = async (refreshToken: string) => {
     return generateAccessToken(payload);
   } catch (error) {
     // error handling
+    // console.log(error);
     throw createError(400, error);
   }
 };

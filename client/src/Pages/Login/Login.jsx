@@ -8,9 +8,9 @@ import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 
 import { authConfig } from "../../Services/Firebase";
 import { useRef } from "react";
 import { backend } from "../../Services/Axios";
-import { useContext } from "react";
-import LoaderFullPage from "../../context/LoaderFullPage";
-import { useEffect } from "react";
+// import { useContext } from "react";
+// import LoaderFullPage from "../../context/LoaderFullPage";
+// import { useEffect } from "react";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -26,7 +26,7 @@ function Login() {
   const emailInput = useRef("");
 
   // main loader componet methords
-  const loader = useContext(LoaderFullPage);
+  // const loader = useContext(LoaderFullPage);
 
   const navigate = useNavigate();
 
@@ -121,21 +121,21 @@ function Login() {
     }
   };
 
-  useEffect(() => {
-    window.addEventListener("online", (e) => console.log(e));
-    window.addEventListener("offline", (e) => console.log(e));
+  // useEffect(() => {
+  //   window.addEventListener("online", (e) => console.log(e));
+  //   window.addEventListener("offline", (e) => console.log(e));
 
-    const innerfunction = async () => {
-      const response = await backend.get("/credits");
-      console.log(response);
-      // check tokens exist on localstorage
-      // request user data or extract user data
-      // show user that user is already login > logout to contiue
-      // show login page
-    };
+  //   const innerfunction = async () => {
+  //     const response = await backend.get("/credits");
+  //     console.log(response);
+  //     // check tokens exist on localstorage
+  //     // request user data or extract user data
+  //     // show user that user is already login > logout to contiue
+  //     // show login page
+  //   };
 
-    innerfunction();
-  }, []);
+  //   innerfunction();
+  // }, []);
 
   return (
     <div className="LoginPage">
