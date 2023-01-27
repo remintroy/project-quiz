@@ -7,7 +7,6 @@ function NavBar() {
       <div className="navbar">
         <h4 className='logo'>Quizo</h4>
         <img src="/img/Profile-Demo.jpg" alt="img" className="profile-img" />
-        <div className="line-below" />
       </div>
     </>
   )

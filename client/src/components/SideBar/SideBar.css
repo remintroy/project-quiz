@@ -1,0 +1,73 @@
+.SideBar {
+  position: fixed;
+  width: 300px;
+  height: 100%;
+  border-right: 1px solid var(--borderColor);
+  box-sizing: border-box;
+  padding: 80px 20px 20px 20px;
+  top: 0;
+  z-index: 99;
+  background-color: white;
+  --BG_LI: #96b2b625;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.5s;
+}
+.SideBar .searchBar {
+  width: 100%;
+  box-sizing: border-box;
+}
+.SideBar .searchBar input {
+  width: 100%;
+  padding: 12px 15px;
+  box-sizing: border-box;
+  border: 1px solid rgb(179, 179, 179);
+  border-radius: 5px;
+  font-size: medium;
+}
+.SideBar .actions {
+  margin-top: 30px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.SideBar .actions li {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: var(--BG_LI);
+  box-sizing: border-box;
+  padding: 15px 20px;
+  gap: 10px;
+  border-radius: 5px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+  transition: all 0.1s;
+  color: rgb(40, 40, 40);
+}
+.SideBar .actions li:hover {
+  background-color: rgba(78, 146, 186, 0.347);
+}
+.SideBar .userData {
+  margin-top: 10px;
+  box-sizing: border-box;
+  padding: 15px 15px;
+  background-color: var(--BG_LI);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.SideBar .userData img {
+  width: 35px;
+  border-radius: 50%;
+}
+.SideBar .userData p {
+  color: rgb(58, 58, 58);
+}/*# sourceMappingURL=SideBar.css.map */

@@ -38,7 +38,7 @@ function App() {
           //..
         } catch (error) {
           try {
-            if (!error.response.status === 401) throw error;
+            if (!error.response?.status === 401) throw error;
             // headers whith refresh token
             const headers = { headers: { authorization: `Bearer ${refreshToken}` } };
             // new access token response from server
