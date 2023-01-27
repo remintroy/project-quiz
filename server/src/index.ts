@@ -24,17 +24,17 @@ app.use(cors());
 app.use(Express.json());
 
 // serving files on public folder
-app.use(path.join(appConfig.baseUrl, "/"), Express.static(path.join(process.cwd(), "public")));
+app.use(appConfig.baseUrl + "/", Express.static(path.join(process.cwd(), "public")));
 
 // initialized authentication state in every requiest
 app.use(authInit);
 
 // authentication routes
-app.use(path.join(appConfig.baseUrl, "/auth"), AuthRouter);
+app.use(appConfig.baseUrl + "/auth", AuthRouter);
 // pages routes
-app.use(path.join(appConfig.baseUrl, "/"), PagesRouter);
+app.use(appConfig.baseUrl + "/", PagesRouter);
 
-app.get(path.join(appConfig.baseUrl, "/credits"), (req, res) => {
+app.get(appConfig.baseUrl + "/credits", (req, res) => {
   res.send({
     SERVER: "Hi from server",
     SHUHAIB: "HABEEBYYY",
