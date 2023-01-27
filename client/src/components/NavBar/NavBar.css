@@ -1,11 +1,5 @@
 .navbar {
   width: 100%;
-<<<<<<< HEAD
-  height: 3rem;
-  margin-top: 1rem;
-  position: -webkit-sticky;
-  position: sticky;
-=======
   height: 4rem;
   align-items: center;
   position: fixed;
@@ -15,7 +9,6 @@
   align-items: center;
   border-bottom: 1px solid var(--borderColor);
   justify-content: space-between;
->>>>>>> 689bbeaf31debc67d7cb035db913ecd0cd853616
 }
 .navbar .logo {
   float: left;
