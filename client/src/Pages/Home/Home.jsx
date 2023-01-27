@@ -9,7 +9,7 @@ function Home() {
       <div className="HomePage">
         <h1>Home sweet home</h1>
         <br />
-
+        lor
       </div>
     </>
   );
