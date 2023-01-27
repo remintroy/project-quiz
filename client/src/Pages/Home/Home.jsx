@@ -8,7 +8,8 @@ function Home() {
       <NavBar />
       <div className="HomePage">
         <h1>Home sweet home</h1>
-        <div></div>
+        <br />
+
       </div>
     </>
   );

@@ -7,6 +7,7 @@ import LoaderFullPage from "./context/LoaderFullPage";
 import User from "./context/User";
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
+import Quiz from "./Pages/Quiz/Quiz";
 import { backend } from "./Services/Axios";
 
 function App() {
@@ -76,6 +77,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/login" element={<Login />}></Route>
+            <Route path="/quiz" element={<Quiz />}></Route>
           </Routes>
         </div>
       </User.Provider>
