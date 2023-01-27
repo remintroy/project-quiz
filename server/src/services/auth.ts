@@ -77,7 +77,7 @@ export const authInit = async (req: RequestDefention, res: Response, next: NextF
     if (!payload?.access) throw "Invalid access tocken";
 
     // gets curresponding user data from server if user exist's
-    req.user = await db.users.findOne({ user: payload?.uid }, { password: 0, _id: 0 });
+    req.user = await db.users.findOne({ uid: payload?.uid }, { password: 0, _id: 0 });
 
     // check for blocked user
     if (req.user.isBlocked) throw "This user is blocked user";
@@ -160,14 +160,20 @@ export const signInUser = async ({ idToken }: { idToken: string }) => {
       tokensForUser.accessToken = generateAccessToken({ uid: userDataFromFirebase.uid });
       tokensForUser.refreshToken = generateRefreshToken({ uid: userDataFromFirebase.uid });
     } catch (error) {
-      throw createError(500, `${existingData ? "" : "User created but "}Faild to login. Try to login after some time`);
+      throw createError(
+        500,
+        `${existingData ? "" : "User created but "}Faild to login. Try to login after some time`
+      );
     }
 
     try {
       // saves refresh token to db
       await new db.refreshTockens({ value: tokensForUser.refreshToken, uid: userDataFromFirebase.uid }).save();
     } catch (error) {
-      throw createError(500, `${existingData ? "" : "User created but "}Faild to login. Try to login after some time`);
+      throw createError(
+        500,
+        `${existingData ? "" : "User created but "}Faild to login. Try to login after some time`
+      );
     }
 
     // user data and tokes successfully created
