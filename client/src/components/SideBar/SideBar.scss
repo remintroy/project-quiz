@@ -1,7 +1,19 @@
+.SideBar.show{
+    width: 250px;
+
+    .actions{
+        li{
+            justify-content: start;
+        }
+    }
+    .userData{
+        justify-content: start;
+    }
+}
 .SideBar {
     position: fixed;
-    width: 300px;
     height: 100%;
+    width: 95px;
     border-right: 1px solid var(--borderColor);
     box-sizing: border-box;
     padding: 80px 20px 20px 20px;
@@ -27,7 +39,6 @@
             box-sizing: border-box;
             border: 1px solid rgb(179, 179, 179);
             border-radius: 5px;
-            font-size: medium;
         }
     }
 
@@ -39,22 +50,29 @@
         flex-direction: column;
         gap: 10px;
 
-
-
         li {
             width: 100%;
             display: flex;
             align-items: center;
             background-color: var(--BG_LI);
             box-sizing: border-box;
-            padding: 15px 20px;
+            padding: 12px 15px;
             gap: 10px;
             border-radius: 5px;
 
+            font-size: 14px;
             user-select: none;
             cursor: pointer;
             transition: all .1s;
             color: rgb(40, 40, 40);
+
+            justify-content: center;
+            transition: all .5s;
+            overflow: hidden;
+
+            span {
+                font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+            }
         }
 
         li:hover {
@@ -72,6 +90,10 @@
         align-items: center;
         gap: 10px;
         cursor: pointer;
+        font-size: small;
+        justify-content: center;
+
+        overflow: hidden;
 
         img {
             width: 35px;

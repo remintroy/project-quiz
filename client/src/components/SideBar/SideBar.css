@@ -1,7 +1,17 @@
+.SideBar.show {
+  width: 250px;
+}
+.SideBar.show .actions li {
+  justify-content: start;
+}
+.SideBar.show .userData {
+  justify-content: start;
+}
+
 .SideBar {
   position: fixed;
-  width: 300px;
   height: 100%;
+  width: 95px;
   border-right: 1px solid var(--borderColor);
   box-sizing: border-box;
   padding: 80px 20px 20px 20px;
@@ -24,7 +34,6 @@
   box-sizing: border-box;
   border: 1px solid rgb(179, 179, 179);
   border-radius: 5px;
-  font-size: medium;
 }
 .SideBar .actions {
   margin-top: 30px;
@@ -39,9 +48,10 @@
   align-items: center;
   background-color: var(--BG_LI);
   box-sizing: border-box;
-  padding: 15px 20px;
+  padding: 12px 15px;
   gap: 10px;
   border-radius: 5px;
+  font-size: 14px;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -49,6 +59,12 @@
   cursor: pointer;
   transition: all 0.1s;
   color: rgb(40, 40, 40);
+  justify-content: center;
+  transition: all 0.5s;
+  overflow: hidden;
+}
+.SideBar .actions li span {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 20;
 }
 .SideBar .actions li:hover {
   background-color: rgba(78, 146, 186, 0.347);
@@ -63,6 +79,9 @@
   align-items: center;
   gap: 10px;
   cursor: pointer;
+  font-size: small;
+  justify-content: center;
+  overflow: hidden;
 }
 .SideBar .userData img {
   width: 35px;
