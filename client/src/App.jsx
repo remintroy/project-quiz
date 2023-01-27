@@ -15,6 +15,11 @@ function App() {
   const loader = useRef({});
   const [user, setUser] = useState(null);
 
+  // full page loader handiler
+  const showFullPageLoader = () => loader.current.classList.add("show");
+  const hideFullPageLoader = () => loader.current.classList.remove("show");
+
+  // this use effect act as data initializer for entier application
   useEffect(() => {
     //
     const getUserData = async () => {
@@ -29,10 +34,11 @@ function App() {
           const res = await backend.get("/user_data", { headers: { authorization: `Bearer ${accessToken}` } });
           // set user data;
           setUser(res.data?.data);
+          return true;
           //..
         } catch (error) {
           try {
-            if (!error.response.status === 401) throw error;
+            if (!error.response?.status === 401) throw error;
             // headers whith refresh token
             const headers = { headers: { authorization: `Bearer ${refreshToken}` } };
             // new access token response from server
@@ -41,19 +47,24 @@ function App() {
             localStorage.setItem("accessToken", res.data?.data?.accessToken);
             // re requesting data from server
             getUserData();
+            return true;
           } catch (error) {
             // error while accessing data or error while getting new access token
             console.warn(error);
+            return false;
           }
         }
     };
-    // getting user data
-    getUserData();
-  }, []);
 
-  // full page loader handiler
-  const showFullPageLoader = () => loader.current.classList.add("show");
-  const hideFullPageLoader = () => loader.current.classList.remove("show");
+    showFullPageLoader();
+    const loadingHideDelay = Date.now() + 1000; // loading will show for atleast 2s.
+
+    // getting user data
+    getUserData().then(() => {
+      while (loadingHideDelay > Date.now()) {}
+      hideFullPageLoader();
+    });
+  }, []);
 
   return (
     <LoaderFullPage.Provider value={{ showFullPageLoader, hideFullPageLoader }}>

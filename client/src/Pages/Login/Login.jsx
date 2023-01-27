@@ -101,7 +101,9 @@ function Login() {
 
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
-      // TODO: Login complete Send user to desired page...
+
+      navigate("/");
+
       // ...
     } catch (errorResponse) {
       // handling error
@@ -120,22 +122,6 @@ function Login() {
       });
     }
   };
-
-  // useEffect(() => {
-  //   window.addEventListener("online", (e) => console.log(e));
-  //   window.addEventListener("offline", (e) => console.log(e));
-
-  //   const innerfunction = async () => {
-  //     const response = await backend.get("/credits");
-  //     console.log(response);
-  //     // check tokens exist on localstorage
-  //     // request user data or extract user data
-  //     // show user that user is already login > logout to contiue
-  //     // show login page
-  //   };
-
-  //   innerfunction();
-  // }, []);
 
   return (
     <div className="LoginPage">
