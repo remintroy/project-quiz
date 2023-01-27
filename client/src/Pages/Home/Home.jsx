@@ -11,10 +11,6 @@ function Home() {
       <div className="HomePage">
         <h1>Home sweet home</h1>
         <br />
-<<<<<<< HEAD
-        lor
-=======
->>>>>>> 689bbeaf31debc67d7cb035db913ecd0cd853616
       </div>
     </>
   );
