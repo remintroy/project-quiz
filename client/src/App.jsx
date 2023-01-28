@@ -8,6 +8,10 @@ import User from "./context/User";
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
 import Quiz from "./Pages/Quiz/Quiz";
+import Step1 from "./Pages/Step1/Step1";
+import Step2 from "./Pages/Step2/Step2";
+import Step3 from "./Pages/Step3/Step3";
+import Step4 from "./Pages/Step4/Step4";
 import { backend } from "./Services/Axios";
 
 function App() {
@@ -89,6 +93,10 @@ function App() {
             <Route path="/" element={<Home />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/quiz" element={<Quiz />}></Route>
+            <Route path="/step" element={<Step1 />}></Route>
+            <Route path="/step2" element={<Step2/>}></Route>
+            <Route path="/step3" element={<Step3/>}></Route>
+            <Route path="/step4" element={<Step4/>}></Route>
           </Routes>
         </div>
       </User.Provider>

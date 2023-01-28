@@ -12,10 +12,13 @@ function Quiz() {
     //To HighLight the code 
     // Add the code questions in the CodeString
     const codeString =
-        `var a = orange; 
+        `
+var a = orange; 
 let b = apple; 
                     
-console.log(this.a,this.b);`
+console.log(this.a,this.b);
+
+`
 
     return (
         <>
@@ -42,15 +45,15 @@ console.log(this.a,this.b);`
                     </SyntaxHighlighter>
                 </div>
                 <div className="hashtags">
-                    <span>#js</span>
+                    <span>#js </span>
                     <span>#creativecoding</span>
                 </div>
-
-                <h4 className="question-h4">
-                    Q. What Will Be The Output For The Code Given Above ?
-                </h4>
-
-                <span className='choose-option'>Choose The Correct Option</span>
+                <div className="question-headline">
+                    <h4 className="question-h4">
+                        Q. What will be the output for the code given above ?
+                    </h4>
+                </div>
+                <span className='choose-option'>Choose the correct option</span>
 
                 <div className="answer-options">
                     <div className="options">Apple</div>
@@ -59,8 +62,8 @@ console.log(this.a,this.b);`
                     <div className="options">Error</div>
                 </div>
 
-                <span className='how-works'><span class="material-symbols-outlined"> info  </span> See How It Works</span>
                 <div className="next-question">Next Question</div>
+                <span className='how-works'><span class="material-symbols-outlined">info</span>Don't know. See how it works </span>
 
             </div>
         </>
