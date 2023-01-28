@@ -3,6 +3,9 @@
     padding-left: 20%;
     padding-right: 20%;
     padding-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 }
 @media screen and (max-width: 600px) {
@@ -19,6 +22,7 @@
   padding: 1rem;
 }
 .QuizPageQuestion .quiz .quiz-name {
+  font-size: large;
   float: left;
 }
 .QuizPageQuestion .quiz .timer {
@@ -30,9 +34,15 @@
 }
 .QuizPageQuestion .hashtags {
   margin-left: 1rem;
-  color: #696969;
+  margin-top: 0;
+  color: #a1a0a0;
+  font-size: x-small;
 }
-.QuizPageQuestion .question-h4 {
+.QuizPageQuestion .question-headline {
+  display: flex;
+  justify-content: space-between;
+}
+.QuizPageQuestion .question-headline .question-h4 {
   margin: 1rem;
   margin-left: 1rem;
 }
@@ -43,7 +53,7 @@
 .QuizPageQuestion .answer-options {
   display: grid;
   padding: 1rem;
-  gap: 0.5rem;
+  gap: 1rem;
   grid-template-columns: 1fr 1fr;
 }
 @media only screen and (max-width: 600px) {
@@ -53,7 +63,7 @@
 }
 .QuizPageQuestion .answer-options .options {
   width: 100%;
-  height: 3rem;
+  height: 3.2rem;
   border-radius: 7px;
   display: flex;
   align-items: center;
@@ -62,12 +72,15 @@
   background-color: #edeeee;
 }
 .QuizPageQuestion .how-works {
-  margin-left: 1rem;
+  margin-top: 1rem;
   font-size: small;
   display: flex;
   text-align: center;
   justify-content: center;
   align-items: center;
+}
+.QuizPageQuestion .how-works .material-symbols-outlined {
+  margin-right: 10px;
 }
 .QuizPageQuestion .next-question {
   margin-top: 3rem;

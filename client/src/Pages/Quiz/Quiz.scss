@@ -3,7 +3,12 @@
     padding-left: 20%;
     padding-right: 20%;
     padding-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
   }
+
   @media screen and (max-width: 600px) {
     height: 100%;
     position: absolute;
@@ -18,6 +23,7 @@
     padding: 1rem;
 
     .quiz-name {
+      font-size: large;
       float: left;
     }
 
@@ -33,12 +39,21 @@
 
   .hashtags {
     margin-left: 1rem;
-    color: #696969;
+    margin-top: 0;
+    color: #a1a0a0;
+    font-size: x-small;
+
   }
 
-  .question-h4 {
-    margin: 1rem;
-    margin-left: 1rem;
+  .question-headline {
+    display: flex;
+    justify-content: space-between;
+
+    .question-h4 {
+      margin: 1rem;
+      margin-left: 1rem;
+    }
+
   }
 
   .choose-option {
@@ -49,7 +64,7 @@
   .answer-options {
     display: grid;
     padding: 1rem;
-    gap: 0.5rem;
+    gap: 1rem;
     grid-template-columns: 1fr 1fr;
 
     @media only screen and (max-width: 600px) {
@@ -58,7 +73,7 @@
 
     .options {
       width: 100%;
-      height: 3rem;
+      height: 3.2rem;
       border-radius: 7px;
       display: flex;
       align-items: center;
@@ -71,13 +86,18 @@
   }
 
   .how-works {
-    margin-left: 1rem;
+    margin-top: 1rem;
     font-size: small;
     display: flex;
     text-align: center;
     justify-content: center;
     align-items: center;
+
+    .material-symbols-outlined{
+      margin-right: 10px;
+    }
   }
+
   .next-question {
     margin-top: 3rem;
     margin: 1rem;
