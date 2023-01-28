@@ -6,7 +6,7 @@ import "./Home.css";
 function Home() {
   return (
     <>
-      <NavBar />
+      {/* <NavBar /> */}
       <SideBar />
       <div className="HomePage">
         <h1>Home sweet home</h1>

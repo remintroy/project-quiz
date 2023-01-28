@@ -25,12 +25,10 @@ function SideBar() {
             <span className="material-symbols-outlined">dataset</span> {showSideBar && "Projects"}
           </li>
           <li>
-            <span className="material-symbols-outlined">task</span>
-            {showSideBar && "Tasks"}
+            <span className="material-symbols-outlined">task</span> {showSideBar && "Tasks"}
           </li>
           <li>
-            <span className="material-symbols-outlined">stars</span>
-            {showSideBar && "Stared"}
+            <span className="material-symbols-outlined">stars</span> {showSideBar && "Stared"}
           </li>
         </ul>
       </div>

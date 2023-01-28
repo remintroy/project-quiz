@@ -66,7 +66,7 @@
             transition: all .1s;
             color: rgb(40, 40, 40);
 
-            justify-content: center;
+            // justify-content: center;
             transition: all .5s;
             overflow: hidden;
 
@@ -83,7 +83,7 @@
     .userData {
         margin-top: 10px;
         box-sizing: border-box;
-        padding: 15px 15px;
+        padding: 15px 10px;
         background-color: var(--BG_LI);
         border-radius: 5px;
         display: flex;
@@ -91,8 +91,9 @@
         gap: 10px;
         cursor: pointer;
         font-size: small;
-        justify-content: center;
-
+        height: 65px;
+        
+        // justify-content: center;
         overflow: hidden;
 
         img {
