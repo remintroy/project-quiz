@@ -127,13 +127,15 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                transition: .1s;
+                transition: .2s;
                 cursor: pointer;
                 user-select: none;
             }
 
             .box1.active {
-                background-color: rgb(170, 225, 191);
+                background-color: rgb(170, 179, 225);
+                color: white;
+                box-shadow: 0 0 20px 15px rgba(174, 174, 174, 0.08);
             }
         }
 
