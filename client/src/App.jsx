@@ -58,6 +58,8 @@ function App() {
             return false;
           }
         }
+
+      return false;
     };
 
     showFullPageLoader();
@@ -94,9 +96,10 @@ function App() {
             <Route path="/login" element={<Login />}></Route>
             <Route path="/quiz" element={<Quiz />}></Route>
             <Route path="/step" element={<Step1 />}></Route>
-            <Route path="/step2" element={<Step2/>}></Route>
-            <Route path="/step3" element={<Step3/>}></Route>
-            <Route path="/step4" element={<Step4/>}></Route>
+            <Route path="/step2" element={<Step2 />}></Route>
+            <Route path="/step3" element={<Step3 />}></Route>
+            <Route path="/step4" element={<Step4 />}></Route>
+            <Route path="*" element={<h1>404 not found</h1>}></Route>
           </Routes>
         </div>
       </User.Provider>
