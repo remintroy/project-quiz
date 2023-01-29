@@ -17,9 +17,8 @@ function Step2() {
     PHP: false,
   });
 
-  const updateLanguageSelection = (key) => {
-    setLanguages({ ...languages, [key]: !languages[key] });
-  };
+  // selects curresponding language
+  const updateLanguageSelection = (key) => setLanguages({ ...languages, [key]: !languages[key] });
 
   return (
     <div className="step2Page">

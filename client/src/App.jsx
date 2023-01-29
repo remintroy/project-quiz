@@ -3,10 +3,12 @@ import { useEffect } from "react";
 import { useRef } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import SideBar from "./components/SideBar/SideBar";
 import LoaderFullPage from "./context/LoaderFullPage";
 import User from "./context/User";
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
+import NotFound from "./Pages/NotFound/NotFound";
 import Quiz from "./Pages/Quiz/Quiz";
 import Step1 from "./Pages/Step1/Step1";
 import Step2 from "./Pages/Step2/Step2";
@@ -63,7 +65,7 @@ function App() {
     };
 
     showFullPageLoader();
-    const loadingHideDelay = Date.now() + 1000; // loading will show for atleast 2s.
+    const loadingHideDelay = Date.now() + 500; // loading will show for atleast 1/2s.
 
     // getting user data
     getUserData().then(() => {
@@ -90,17 +92,18 @@ function App() {
             </div>
             <h2>Team Quiz</h2>
           </div>
-
-          <Routes>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/login" element={<Login />}></Route>
-            <Route path="/quiz" element={<Quiz />}></Route>
-            <Route path="/step" element={<Step1 />}></Route>
-            <Route path="/step2" element={<Step2 />}></Route>
-            <Route path="/step3" element={<Step3 />}></Route>
-            <Route path="/step4" element={<Step4 />}></Route>
-            <Route path="*" element={<h1>404 not found</h1>}></Route>
-          </Routes>
+          <SideBar>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />}></Route>
+              <Route path="/quiz" element={<Quiz />}></Route>
+              <Route path="/step" element={<Step1 />}></Route>
+              <Route path="/step2" element={<Step2 />}></Route>
+              <Route path="/step3" element={<Step3 />}></Route>
+              <Route path="/step4" element={<Step4 />}></Route>
+              <Route path="*" element={<NotFound />}></Route>
+            </Routes>
+          </SideBar>
         </div>
       </User.Provider>
     </LoaderFullPage.Provider>

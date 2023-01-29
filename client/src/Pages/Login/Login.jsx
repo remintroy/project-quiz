@@ -8,11 +8,11 @@ import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 
 import { authConfig } from "../../Services/Firebase";
 import { useRef } from "react";
 import { backend } from "../../Services/Axios";
-// import { useContext } from "react";
-// import LoaderFullPage from "../../context/LoaderFullPage";
-// import { useEffect } from "react";
 
 function Login() {
+  const passwordInput = useRef("");
+  const emailInput = useRef("");
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -22,12 +22,6 @@ function Login() {
     message: "Hi, Do I know You? Lets see...",
   });
 
-  const passwordInput = useRef("");
-  const emailInput = useRef("");
-
-  // main loader componet methords
-  // const loader = useContext(LoaderFullPage);
-
   const navigate = useNavigate();
 
   // reset all input color to default
@@ -36,90 +30,54 @@ function Login() {
     passwordInput.current.classList.remove("err");
   };
 
-  // format firebase error and display to user
-  const showFirebaseError = (error) => {
-    setStatusDisplay({
-      show: true,
-      error: true,
-      message: error.code ? ` Oops ${error.code?.split("/")[1]?.split("-")?.join(" ")} !` : "Oops Faild to login",
-    });
-  };
+  const showErrorStatus = (message) => setStatusDisplay({ error: true, show: true, message: message });
+  const showStatus = (message) => setStatusDisplay({ error: false, show: true, message: message });
 
-  // Login with email and password
-  const loginWithEmailHandler = async () => {
+  const firebaseAuthentication = async (type) => {
     try {
+      // error message for empty fields
+      const incompleteFieldErr = {
+        code: "auth/plz-fillout-all-required-fields",
+      };
+
+      if (type === "Email" && !email && !password) throw incompleteFieldErr;
+
       resetAllInputColors();
-      setStatusDisplay({
-        error: false,
-        show: true,
-        message: "Loading...",
-      });
-      const response = await signInWithEmailAndPassword(authConfig, email, password);
+      showStatus("Loading...");
+
+      const response =
+        type === "Google"
+          ? await signInWithPopup(authConfig, new GoogleAuthProvider())
+          : type === "Email"
+          ? await signInWithEmailAndPassword(authConfig, email, password)
+          : "// github function here";
+
       submitToServer(response);
     } catch (error) {
-      // error handling
-      showFirebaseError(error);
-    }
-  };
-
-  // signin with google
-  const loginWithGoogleHandler = async () => {
-    try {
-      resetAllInputColors();
-      setStatusDisplay({
-        error: false,
-        show: true,
-        message: "Loading...",
-      });
-      const response = await signInWithPopup(authConfig, new GoogleAuthProvider());
-      submitToServer(response);
-    } catch (error) {
-      // handling error
-      showFirebaseError(error);
+      showErrorStatus(error.code ? `${error.code?.split("/")[1]?.split("-")?.join(" ")} !` : "Oops Faild to login");
     }
   };
 
   const submitToServer = async ({ _tokenResponse: { idToken } }) => {
     try {
       // success response
-      setStatusDisplay({
-        error: false,
-        show: true,
-        message: "Connecting to server",
-      });
+      showStatus("Connecting to server");
       // request to server and getting token response from server
-      const {
-        data: { accessToken, refreshToken },
-      } = await backend.post("/auth/signin", { idToken: idToken });
-
-      // success response
+      const response = await backend.post("/auth/signin", { idToken: idToken });
+      localStorage.setItem("accessToken", response?.data?.accessToken);
+      localStorage.setItem("refreshToken", response?.data?.refreshToken);
       setStatusDisplay({
         error: false,
         show: true,
         message: "Login success",
       });
-
-      localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("refreshToken", refreshToken);
-
+      // sends user to desired page after login
       navigate("/");
-
       // ...
     } catch (errorResponse) {
-      // handling error
-
-      const {
-        response: {
-          data: { error },
-        },
-      } = errorResponse;
-
-      // display error to user
-      setStatusDisplay({
-        error: true,
-        show: true,
-        message: error,
-      });
+      const response = errorResponse;
+      const error = response?.data?.error;
+      showErrorStatus(error ? error : "Oops someting went wrong!");
     }
   };
 
@@ -169,7 +127,7 @@ function Login() {
               </span>
             )}
           </p>
-          <button onClick={(e) => loginWithEmailHandler()}>Continue</button>
+          <button onClick={(e) => firebaseAuthentication("Email")}>Continue</button>
         </div>
         <div className="signup" onClick={(e) => navigate("/signup")}>
           Don't have account ? SIGNUP
@@ -180,7 +138,7 @@ function Login() {
           <div></div>
         </div>
         <div className="providers">
-          <button className="g" onClick={(e) => loginWithGoogleHandler()}>
+          <button className="g" onClick={(e) => firebaseAuthentication("Google")}>
             <img src={googleIcn} alt="" /> Continue with google
           </button>
           <button className="g h">

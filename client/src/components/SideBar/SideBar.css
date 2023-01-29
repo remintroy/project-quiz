@@ -1,22 +1,38 @@
-.SideBar.show {
+.SideBar.show .Bar {
   width: 250px;
 }
-.SideBar.show .actions li {
+.SideBar.show .Bar .actions li {
   justify-content: start;
 }
-.SideBar.show .userData {
+.SideBar.show .Bar .userData {
   justify-content: start;
+}
+.SideBar.show .Bar .top .logoSection {
+  justify-content: start;
+}
+.SideBar.show .PageContent {
+  width: calc(100% - 250px);
 }
 
 .SideBar {
-  position: fixed;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  z-index: 99;
+}
+.SideBar .Bar {
+  overflow: hidden;
+  position: absolute;
   height: 100%;
   width: 95px;
   border-right: 1px solid var(--borderColor);
   box-sizing: border-box;
-  padding: 80px 20px 20px 20px;
+  padding: 40px 20px 20px 20px;
   top: 0;
-  z-index: 99;
   background-color: white;
   --BG_LI: #96b2b625;
   display: flex;
@@ -24,25 +40,38 @@
   justify-content: space-between;
   transition: all 0.5s;
 }
-.SideBar .searchBar {
+.SideBar .Bar .top .logoSection {
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  cursor: pointer;
+  gap: 10px;
   width: 100%;
   box-sizing: border-box;
 }
-.SideBar .searchBar input {
+.SideBar .Bar .top .logoSection img {
+  width: 40px;
+}
+.SideBar .Bar .searchBar {
+  margin-top: 35px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.SideBar .Bar .searchBar input {
   width: 100%;
   padding: 12px 15px;
   box-sizing: border-box;
   border: 1px solid rgb(179, 179, 179);
   border-radius: 5px;
 }
-.SideBar .actions {
+.SideBar .Bar .actions {
   margin-top: 30px;
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.SideBar .actions li {
+.SideBar .Bar .actions li {
   width: 100%;
   display: flex;
   align-items: center;
@@ -57,18 +86,23 @@
       -ms-user-select: none;
           user-select: none;
   cursor: pointer;
-  transition: all 0.1s;
+  transition: all 0.05s;
   color: rgb(40, 40, 40);
-  transition: all 0.5s;
+  transition: all 0.1s;
   overflow: hidden;
 }
-.SideBar .actions li span {
+.SideBar .Bar .actions li span {
   font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 20;
 }
-.SideBar .actions li:hover {
-  background-color: rgba(78, 146, 186, 0.347);
+.SideBar .Bar .actions li.on,
+.SideBar .Bar .actions li.on:hover {
+  background-color: rgba(134, 112, 188, 0.964);
+  color: white;
 }
-.SideBar .userData {
+.SideBar .Bar .actions li:hover {
+  background-color: rgba(123, 78, 186, 0.347);
+}
+.SideBar .Bar .userData {
   margin-top: 10px;
   box-sizing: border-box;
   padding: 15px 10px;
@@ -82,10 +116,21 @@
   height: 65px;
   overflow: hidden;
 }
-.SideBar .userData img {
+.SideBar .Bar .userData img {
   width: 35px;
   border-radius: 50%;
 }
-.SideBar .userData p {
+.SideBar .Bar .userData p {
   color: rgb(58, 58, 58);
+}
+.SideBar .PageContent {
+  transition: all 0.5s;
+  position: absolute;
+  width: calc(100% - 95px);
+  top: 0;
+  bottom: 0;
+  right: 0;
+  padding: 30px;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }/*# sourceMappingURL=SideBar.css.map */
