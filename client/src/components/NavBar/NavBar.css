@@ -1,14 +1,17 @@
 .navbar {
-  width: 100%;
+  right: 0;
+  left: 0;
+  top: 0;
   height: 4rem;
   align-items: center;
-  position: fixed;
+  position: absolute;
   background-color: white;
   z-index: 100;
   display: flex;
   align-items: center;
   border-bottom: 1px solid var(--borderColor);
   justify-content: space-between;
+  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.092);
 }
 .navbar .logo {
   float: left;
