@@ -1,69 +1,48 @@
 import jwt from "jsonwebtoken";
 import dotEnv from "dotenv";
-import { RequestDefention } from "../defeniton";
-import { NextFunction, Response } from "express";
-import { createError } from "./util";
-import * as db from "./mongoDb";
 import validator from "validator";
+import { NextFunction, Response } from "express";
+import * as db from "./mongoDb";
+import { RequestDefention } from "../defeniton";
+import { createError } from "./util";
 import { verifyIdToken } from "./Firebase";
 
 // config env
 dotEnv.config();
 
 // verify access token
-export const validateAccessToken = (accessTocken: string) => {
+export const getAccessTokenData = (accessTocken: string) => {
   return new Promise((resolve, reject) => {
     jwt.verify(accessTocken, process.env.ACCESS_TOKEN_SECRET, (err, data) => {
-      if (err) {
-        reject(err.message);
-        return;
-      }
-      resolve(data);
+      if (err) reject(err.message);
+      else resolve(data);
     });
   });
 };
 
 // verify refresh token
-export const validateRefreshToken = (accessTocken: string) => {
+export const getRefreshTokenData = (accessTocken: string) => {
   return new Promise((resolve, reject) => {
     jwt.verify(accessTocken, process.env.REFRESH_TOKEN_SECRET, (err, data) => {
-      if (err) {
-        reject(err.message);
-        return;
-      }
-      resolve(data);
+      if (err) reject(err.message);
+      else resolve(data);
     });
   });
 };
 
-export const generateAccessToken = (payload: { uid: string }) => {
-  return jwt.sign({ uid: payload.uid, access: true }, process.env.ACCESS_TOKEN_SECRET, {
+export const newRefreshToken = (payload: object) => jwt.sign({ ...payload }, process.env.REFRESH_TOKEN_SECRET);
+export const newAccessToken = (payload: { uid: string }) =>
+  jwt.sign({ uid: payload.uid }, process.env.ACCESS_TOKEN_SECRET, {
     expiresIn: "1m",
   });
-};
 
-export const generateRefreshToken = (payload: object) => {
-  return jwt.sign({ ...payload, refresh: true }, process.env.REFRESH_TOKEN_SECRET);
-};
-
-export const getNewAccessTocken = async (refreshToken: string) => {
+export const getNewAccessTockenFromRefreshToken = async (refreshToken: string) => {
   try {
-    const tockenSavedInDB = await db.refreshTockens.findOne({
-      value: refreshToken,
-    });
-
-    // checks if token is in db
+    const tockenSavedInDB = await db.refreshTockens.findOne({ value: refreshToken });
     if (!tockenSavedInDB) throw "Invalid refresh token";
-
-    // gets payload from refresh tocken
-    const payload: any = await validateRefreshToken(refreshToken);
-    // return newly created access tocken
-    if (!payload.refresh) throw "Invalid refresh token";
-
-    return generateAccessToken(payload);
+    const payload: any = await getRefreshTokenData(refreshToken);
+    return newAccessToken(payload);
   } catch (error) {
-    // error handling
-    // console.log(error);
     throw createError(400, error);
   }
 };
@@ -71,22 +50,17 @@ export const getNewAccessTocken = async (refreshToken: string) => {
 // function that runs on every request
 export const authInit = async (req: RequestDefention, res: Response, next: NextFunction) => {
   try {
-    const payload: any = await validateAccessToken(req.headers["authorization"]?.split(" ")[1]);
-
+    const payload: any = await getAccessTokenData(req.headers["authorization"]?.split(" ")[1]);
     // check if its an access token and not refresh token
     if (!payload?.access) throw "Invalid access tocken";
-
     // gets curresponding user data from server if user exist's
     req.user = await db.users.findOne({ uid: payload?.uid }, { password: 0, _id: 0 });
-
     // check for blocked user
-    if (req.user.isBlocked) throw "This user is blocked user";
+    if (req.user.disabled) throw "This user is blocked user";
     // check if this is an admin account
     if (req.user?.admin) req.admin = req.user;
   } catch (error) {
-    // error handling
     req.user = null;
-    // console.log(error);
   }
   next();
 };
@@ -112,23 +86,21 @@ export const mustLoginAsUser = async (req: RequestDefention, res: Response, next
 // login user if exist or create new user
 export const signInUser = async ({ idToken }: { idToken: string }) => {
   try {
-    // validating idToken
     if (!validator.isJWT(idToken + "")) throw createError(400, "Invalid idToken");
 
     // verfy idToken and retrive userData from firebase
     const userDataFromFirebase = await verifyIdToken({ idToken });
 
+    // check for existing data
     let existingData: object;
     try {
-      // check for existing data
       existingData = await db.users.findOne({ uid: userDataFromFirebase.uid });
     } catch (error) {
-      // error
       throw createError(500, "Faild to fetch user data");
     }
 
     if (!existingData) {
-      // if user not exist create new user
+      // creates and saves new user
       const newUserData = {
         uid: userDataFromFirebase.uid,
         name: userDataFromFirebase.displayName,
@@ -141,12 +113,8 @@ export const signInUser = async ({ idToken }: { idToken: string }) => {
         phone: userDataFromFirebase.phoneNumber,
         disabled: userDataFromFirebase.disabled,
       };
-
-      // user object
       const newUser = new db.users(newUserData);
-
       try {
-        // saves new user data to db
         await newUser.save();
       } catch (error) {
         throw createError(500, "Error creating user");
@@ -155,31 +123,24 @@ export const signInUser = async ({ idToken }: { idToken: string }) => {
 
     // ----- TOKENS -----
     const tokensForUser: { accessToken: string; refreshToken: string } = { accessToken: null, refreshToken: null };
+    // creates token's for new user
     try {
-      // creates token's for new user
-      tokensForUser.accessToken = generateAccessToken({ uid: userDataFromFirebase.uid });
-      tokensForUser.refreshToken = generateRefreshToken({ uid: userDataFromFirebase.uid });
+      tokensForUser.accessToken = newAccessToken({ uid: userDataFromFirebase.uid });
+      tokensForUser.refreshToken = newRefreshToken({ uid: userDataFromFirebase.uid });
     } catch (error) {
-      throw createError(
-        500,
-        `${existingData ? "" : "User created but "}Faild to login. Try to login after some time`
-      );
+      throw createError(500, `${existingData ? "" : "User created but "}Faild to login. Try to login after some time`);
     }
 
+    // saves refresh token to db
     try {
-      // saves refresh token to db
       await new db.refreshTockens({ value: tokensForUser.refreshToken, uid: userDataFromFirebase.uid }).save();
     } catch (error) {
-      throw createError(
-        500,
-        `${existingData ? "" : "User created but "}Faild to login. Try to login after some time`
-      );
+      throw createError(500, `${existingData ? "" : "User created but "}Faild to login. Try to login after some time`);
     }
 
     // user data and tokes successfully created
     return tokensForUser;
   } catch (error) {
-    // error signup user
     throw error;
   }
 };
