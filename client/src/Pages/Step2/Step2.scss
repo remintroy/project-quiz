@@ -3,13 +3,13 @@
     width: 100%;
     position: relative;
     color: white;
-    --BG-COLOR: #314664;
+    --BG-COLOR-1: #594b7c;
 
     .left {
         float: left;
         width: 25%;
         height: 100vh;
-        background-color: var(--BG-COLOR);
+        background-color: var(--BG-COLOR-1);
 
         .navName {
             position: absolute;
@@ -132,7 +132,7 @@
             }
 
             .box1.active {
-                background-color: rgb(170, 179, 225);
+                background-color: #8a75bf;
                 color: white;
                 box-shadow: 0 0 20px 15px rgba(174, 174, 174, 0.08);
             }
@@ -158,7 +158,7 @@
             .nextBtn {
                 width: 120px;
                 height: 50px;
-                background-color: #0174fe;
+                background-color: #8a75bf;
                 color: white;
                 display: flex;
                 justify-content: center;

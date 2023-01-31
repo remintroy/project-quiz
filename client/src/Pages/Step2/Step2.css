@@ -3,13 +3,13 @@
   width: 100%;
   position: relative;
   color: white;
-  --BG-COLOR: #314664;
+  --BG-COLOR-1: #594b7c;
 }
 .step2Page .left {
   float: left;
   width: 25%;
   height: 100vh;
-  background-color: var(--BG-COLOR);
+  background-color: var(--BG-COLOR-1);
 }
 .step2Page .left .navName {
   position: absolute;
@@ -118,7 +118,7 @@
           user-select: none;
 }
 .step2Page .right .box .box1.active {
-  background-color: rgb(170, 179, 225);
+  background-color: #8a75bf;
   color: white;
   box-shadow: 0 0 20px 15px rgba(174, 174, 174, 0.08);
 }
@@ -141,7 +141,7 @@
 .step2Page .right .buttons .nextBtn {
   width: 120px;
   height: 50px;
-  background-color: #0174fe;
+  background-color: #8a75bf;
   color: white;
   display: flex;
   justify-content: center;
