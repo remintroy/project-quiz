@@ -11,12 +11,17 @@ function SideBar(PageContent) {
   const [isMobile, setIsMoblie] = useState(true);
   const userContext = useContext(User);
 
+  const adjustSidebar = () => {
+    setIsMoblie(window.innerWidth < 600);
+    setShow(window.innerWidth > 1000);
+  };
+
   useEffect(() => {
-    window.addEventListener("resize", (e) => {
-      setIsMoblie(window.innerWidth < 600);
-      setShow(window.innerWidth > 1000);
-    });
-    return () => window.removeEventListener("resize", () => console.log("event removed"));
+    // adjust sidebar when page loads
+    adjustSidebar();
+    // adjust on every resize event
+    window.addEventListener("resize", () => adjustSidebar());
+    return () => window.removeEventListener("resize", () => {});
   }, []);
 
   const navigate = useNavigate();
