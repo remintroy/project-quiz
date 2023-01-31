@@ -90,6 +90,14 @@ export const userQuestions = db.model(
   })
 );
 
+// questions
+export const questions = db.model(
+  "questions",
+  new mongoose.Schema({
+    qid: String,
+  })
+);
+
 // to save refresh tokens
 export const refreshTockens = db.model(
   "refreshTockens",

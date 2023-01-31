@@ -1,0 +1,4 @@
+// #first algorithem
+const getAddableScore = () => {
+    
+};

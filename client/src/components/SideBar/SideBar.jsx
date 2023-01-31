@@ -47,8 +47,8 @@ function SideBar(PageContent) {
                 <span className="material-symbols-outlined">home</span>
                 {show && "Home"}
               </li>
-              <li className={path === "/projects" ? "on" : ""} onClick={() => navigate("/projects")}>
-                <span className="material-symbols-outlined">dataset</span> {show && "Projects"}
+              <li className={path === "/explore" ? "on" : ""} onClick={() => navigate("/explore")}>
+                <span className="material-symbols-outlined">explore</span> {show && "Projects"}
               </li>
               <li className={path === "/tasks" ? "on" : ""} onClick={() => navigate("/tasks")}>
                 <span className="material-symbols-outlined">task</span> {show && "Tasks"}
@@ -92,11 +92,11 @@ function SideBar(PageContent) {
           <li className={path === "/" ? "on" : ""} onClick={() => navigate("/")}>
             <span className="material-symbols-outlined">home</span>
           </li>
-          <li className={path === "/projects" ? "on" : ""} onClick={() => navigate("/projects")}>
-            <span className="material-symbols-outlined">dataset</span>
+          <li className={path === "/explore" ? "on" : ""} onClick={() => navigate("/explore")}>
+            <span className="material-symbols-outlined">explore</span>
           </li>
           <li className={path === "/tasks" ? "on" : ""} onClick={() => navigate("/tasks")}>
-            <span className="material-symbols-outlined">task</span>
+            <span className="material-symbols-outlined">fact_check</span>
           </li>
           <li className={path === "/settings" ? "on" : ""} onClick={() => navigate("/settings")}>
             <span className="material-symbols-outlined">settings</span>

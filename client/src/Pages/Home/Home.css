@@ -1,4 +1,11 @@
 .HomePage {
   width: 100%;
-  height: 100vh;
+}
+.HomePage .userDashStats {
+  width: 100%;
+  border: 1px solid var(--borderColor);
+  height: 200px;
+  border-radius: 5px;
+  background-size: contain;
+  background-image: url("https://img.freepik.com/free-vector/character-couple-solving-puzzle-pieces-illustration_53876-32627.jpg");
 }/*# sourceMappingURL=Home.css.map */

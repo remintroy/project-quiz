@@ -8,7 +8,10 @@ function Home() {
       {/* <NavBar /> */}
       <div className="HomePage">
         <h1>Home sweet home</h1>
-        lorem*1000
+        <div className="userDashStats">
+          
+        </div>
+        lorem*10
       </div>
     </>
   );

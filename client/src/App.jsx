@@ -102,8 +102,19 @@ function App() {
                 </SideBar>
               }
             />
+            <Route
+              path="/quiz"
+              element={
+                <SideBar>
+                  <Quiz />
+                </SideBar>
+              }
+            ></Route>
+            <Route path="/explore" element={<SideBar>Explore</SideBar>}></Route>
+            <Route path="/tasks" element={<SideBar>Tasks</SideBar>}></Route>
+            <Route path="/settings" element={<SideBar>Settings</SideBar>}></Route>
+
             <Route path="/login" element={<Login />}></Route>
-            <Route path="/quiz" element={<Quiz />}></Route>
             <Route path="/step" element={<Step1 />}></Route>
             <Route path="/step2" element={<Step2 />}></Route>
             <Route path="/step3" element={<Step3 />}></Route>

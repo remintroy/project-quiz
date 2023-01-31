@@ -51,8 +51,6 @@ export const getNewAccessTockenFromRefreshToken = async (refreshToken: string) =
 export const authInit = async (req: RequestDefention, res: Response, next: NextFunction) => {
   try {
     const payload: any = await getAccessTokenData(req.headers["authorization"]?.split(" ")[1]);
-    // check if its an access token and not refresh token
-    if (!payload?.access) throw "Invalid access tocken";
     // gets curresponding user data from server if user exist's
     req.user = await db.users.findOne({ uid: payload?.uid }, { password: 0, _id: 0 });
     // check for blocked user
