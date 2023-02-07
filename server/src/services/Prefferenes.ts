@@ -1,4 +1,4 @@
 // #first algorithem
-const getAddableScore = () => {
-    
+const getAddableScore = ({ questions }) => {
+  console.log(questions);
 };

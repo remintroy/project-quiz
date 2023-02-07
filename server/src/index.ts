@@ -4,7 +4,8 @@ import path from "path";
 import cors from "cors";
 
 import AuthRouter from "./router/auth";
-import PagesRouter from "./router/Pages";
+import PagesRouter from "./router/root";
+import AdminRouter from "./router/admin";
 import { authInit } from "./services/auth";
 
 // configuring env
@@ -17,7 +18,7 @@ const app = Express();
 const appConfig = {
   port: process.env.PORT || 5000,
   name: "quiz app",
-  baseUrl: "",
+  baseUrl: process.env.BASE_URL ?? "",
 };
 
 app.use(cors());
@@ -33,6 +34,8 @@ app.use(authInit);
 app.use(appConfig.baseUrl + "/auth", AuthRouter);
 // pages routes
 app.use(appConfig.baseUrl + "/", PagesRouter);
+// admin router
+app.use(appConfig.baseUrl + "/admin", AdminRouter);
 
 app.get(appConfig.baseUrl + "/credits", (req, res) => {
   res.send({

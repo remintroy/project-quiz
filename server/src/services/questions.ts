@@ -1,4 +1,8 @@
+import * as db from "./mongoDb";
+
 // #Creates and saves question to db
-const addQuestion = async () => {
-    
+export const addQuestion = async (data) => {
+  // { question, code, title, language, tags, category, type, score, option, answer } 
+  console.log(data)
+  return data;
 };

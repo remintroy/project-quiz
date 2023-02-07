@@ -94,7 +94,17 @@ export const userQuestions = db.model(
 export const questions = db.model(
   "questions",
   new mongoose.Schema({
-    qid: String,
+    qid: String, // question id
+    question: String, // actual question to ask e.b.. what is the sum of 1 and 2
+    title: String, // a title for question e.g.. apple and orange
+    type: String, // type of questin e.b.. choice questions, write answer questions.
+    score: Number, // how many score question contians
+    language: String, // this question is focusd on which language
+    options: [], // options to choose
+    answer: String, // answer index or answer itself
+    code: String, // actuial code displayed to user as question
+    tags: [String], // tags
+    category: [String], // question category e.g.. array, linkedList
   })
 );
 
