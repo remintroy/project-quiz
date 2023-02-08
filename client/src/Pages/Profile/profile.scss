@@ -1,0 +1,48 @@
+.logo-wrap {
+  width: 100%;
+  // height: 3rem;
+
+  .user-profile-img {
+    position: absolute;
+    width: 7rem;
+    height: 7rem;
+    border-radius: 50%;
+    margin-top:.75rem;
+    right: .25rem;
+    background-color: #fff;
+    border: 10px;
+    border-color: #cbcaca;
+  }
+
+  .logo {
+    margin-top: 1rem;
+    float: left;
+    width: 100%;
+  }
+  .logo h4 {
+    margin-left: 1.5rem;
+  }
+
+  .hi-user {
+    margin-top: 1rem;
+    padding-left: 1rem;
+    padding-top: 1rem;
+    float: left;
+    width: 100%;
+    height: 5rem;
+    background-color: #907eff;
+  }
+
+  .hi-user h3 {
+    color: #ffffff;
+  }
+  .hi-user h4 {
+    color: #e0dfe8;
+  }
+}
+
+.ranking-stats {
+  margin: 0.25rem;
+  border: 1px;
+  border-color: #907eff;
+}

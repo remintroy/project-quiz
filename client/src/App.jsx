@@ -5,8 +5,13 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import LoaderFullPage from "./context/LoaderFullPage";
 import User from "./context/User";
+
+
+//Importing Pages 
+
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
+import Profile from "./Pages/Profile/Profile";
 import Quiz from "./Pages/Quiz/Quiz";
 import { backend } from "./Services/Axios";
 
@@ -89,6 +94,7 @@ function App() {
             <Route path="/" element={<Home />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/quiz" element={<Quiz />}></Route>
+            <Route path="/Profile" element={<Profile />}></Route>
           </Routes>
         </div>
       </User.Provider>
