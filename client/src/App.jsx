@@ -6,8 +6,13 @@ import "./App.css";
 import SideBar from "./components/SideBar/SideBar";
 import LoaderFullPage from "./context/LoaderFullPage";
 import User from "./context/User";
+
+
+//Importing Pages 
+
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
+import Profile from "./Pages/Profile/Profile";
 import NotFound from "./Pages/NotFound/NotFound";
 import Quiz from "./Pages/Quiz/Quiz";
 import Step1 from "./Pages/Step1/Step1";
@@ -113,8 +118,9 @@ function App() {
             <Route path="/explore" element={<SideBar>Explore</SideBar>}></Route>
             <Route path="/tasks" element={<SideBar>Tasks</SideBar>}></Route>
             <Route path="/settings" element={<SideBar>Settings</SideBar>}></Route>
-
             <Route path="/login" element={<Login />}></Route>
+            <Route path="/quiz" element={<Quiz />}></Route>
+            <Route path="/Profile" element={<Profile />}></Route>
             <Route path="/step" element={<Step1 />}></Route>
             <Route path="/step2" element={<Step2 />}></Route>
             <Route path="/step3" element={<Step3 />}></Route>
