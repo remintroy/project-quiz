@@ -5,7 +5,7 @@ export interface RequestDefention extends Request {
   user: {
     admin: boolean;
     uid: string;
-    isBlocked: boolean;
+    disabled: boolean;
   };
   admin: Object;
 }

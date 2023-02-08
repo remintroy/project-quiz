@@ -1,0 +1,92 @@
+.step4Page {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    color: white;
+    --BG-COLOR: #594b7c;
+
+    .left {
+        float: left;
+        width: 25%;
+        height: 100vh;
+        background-color: var(--BG-COLOR);
+
+        .navName {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            font-size: large;
+        }
+
+
+        .leftCenter {
+            position: absolute;
+            top: 22%;
+            left: 20px;
+
+            h4 {
+                margin-bottom: 15px;
+                font-weight: 500;
+                font-size: large;
+            }
+
+            p {
+                width: 300px;
+                font-weight: 200;
+                margin-bottom: 40px;
+            }
+
+            .gap{
+                height: 50px;
+                width: 0px;
+                margin-left: 15px;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                border: 0.5px dashed rgb(175, 175, 175);
+            }
+
+            .firstSection {
+                display: flex;
+                align-items: center;
+                span{
+                    padding-left: 20px;
+                }
+                .first {
+                    width: 30px;
+                    height: 30px;
+                    border: 1px solid rgb(255, 254, 254);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 100px;
+                }
+
+            }
+
+            .SecondarySection{
+                display: flex;
+                align-items: center;
+                opacity: 0.2;
+                span{
+                    padding-left: 20px;
+                }
+                .first {
+                    
+                    width: 30px;
+                    height: 30px;
+                    border: 1px solid rgb(255, 254, 254);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 100px;
+                }
+            }
+
+
+        }
+    }
+
+
+
+
+}

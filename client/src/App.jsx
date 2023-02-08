@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useRef } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import SideBar from "./components/SideBar/SideBar";
 import LoaderFullPage from "./context/LoaderFullPage";
 import User from "./context/User";
 
@@ -12,7 +13,12 @@ import User from "./context/User";
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
 import Profile from "./Pages/Profile/Profile";
+import NotFound from "./Pages/NotFound/NotFound";
 import Quiz from "./Pages/Quiz/Quiz";
+import Step1 from "./Pages/Step1/Step1";
+import Step2 from "./Pages/Step2/Step2";
+import Step3 from "./Pages/Step3/Step3";
+import Step4 from "./Pages/Step4/Step4";
 import { backend } from "./Services/Axios";
 
 function App() {
@@ -59,10 +65,12 @@ function App() {
             return false;
           }
         }
+
+      return false;
     };
 
     showFullPageLoader();
-    const loadingHideDelay = Date.now() + 1000; // loading will show for atleast 2s.
+    const loadingHideDelay = Date.now() + 500; // loading will show for atleast 1/2s.
 
     // getting user data
     getUserData().then(() => {
@@ -91,10 +99,33 @@ function App() {
           </div>
 
           <Routes>
-            <Route path="/" element={<Home />}></Route>
+            <Route
+              path="/"
+              element={
+                <SideBar>
+                  <Home />
+                </SideBar>
+              }
+            />
+            <Route
+              path="/quiz"
+              element={
+                <SideBar>
+                  <Quiz />
+                </SideBar>
+              }
+            ></Route>
+            <Route path="/explore" element={<SideBar>Explore</SideBar>}></Route>
+            <Route path="/tasks" element={<SideBar>Tasks</SideBar>}></Route>
+            <Route path="/settings" element={<SideBar>Settings</SideBar>}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/quiz" element={<Quiz />}></Route>
             <Route path="/Profile" element={<Profile />}></Route>
+            <Route path="/step" element={<Step1 />}></Route>
+            <Route path="/step2" element={<Step2 />}></Route>
+            <Route path="/step3" element={<Step3 />}></Route>
+            <Route path="/step4" element={<Step4 />}></Route>
+            <Route path="*" element={<NotFound />}></Route>
           </Routes>
         </div>
       </User.Provider>

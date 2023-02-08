@@ -33,7 +33,7 @@ app.post("/generate_refresh_token", async (req, res) => {
 
     if (!validator.isJWT(refreshToken + "")) throw createError(400, "Invalid refresh token");
 
-    const NewAccessTocken = await Auth.getNewAccessTocken(refreshToken);
+    const NewAccessTocken = await Auth.getNewAccessTockenFromRefreshToken(refreshToken);
 
     // sending new access token
     res.send({ error: false, data: { accessToken: NewAccessTocken } });

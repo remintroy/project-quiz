@@ -35,8 +35,76 @@ export const users = db.model(
       type: Object,
       default: {
         languages: [],
+        subjects: [],
+        difficulty: {
+          type: Number,
+          default: 0,
+        },
+        steps: {
+          type: Number,
+          default: 0,
+        },
       },
     },
+  })
+);
+
+// questions interaction by user
+export const userQuestions = db.model(
+  "userquestions",
+  new mongoose.Schema({
+    uid: String,
+    questions: [
+      {
+        qid: String,
+        time: [
+          {
+            start: Date,
+            end: Date,
+          },
+        ],
+        isUpdated: {
+          type: Object,
+          default: {
+            date: Date,
+            status: false,
+          },
+        },
+        docAttendence: {
+          type: Object,
+          default: {
+            status: false,
+            date: Date,
+          },
+        },
+        score: {
+          type: Number,
+          default: 0,
+        },
+        status: {
+          type: Number,
+          default: 0,
+        },
+      },
+    ],
+  })
+);
+
+// questions
+export const questions = db.model(
+  "questions",
+  new mongoose.Schema({
+    qid: String, // question id
+    question: String, // actual question to ask e.b.. what is the sum of 1 and 2
+    title: String, // a title for question e.g.. apple and orange
+    type: String, // type of questin e.b.. choice questions, write answer questions.
+    score: Number, // how many score question contians
+    language: String, // this question is focusd on which language
+    options: [], // options to choose
+    answer: String, // answer index or answer itself
+    code: String, // actuial code displayed to user as question
+    tags: [String], // tags
+    category: [String], // question category e.g.. array, linkedList
   })
 );
 
