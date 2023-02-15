@@ -101,7 +101,7 @@ export const questions = db.model(
     score: Number, // how many score question contians
     language: String, // this question is focusd on which language
     options: [], // options to choose
-    answer: String, // answer index or answer itself
+    answer: [], // answer index or answer itself as the first index
     code: String, // actuial code displayed to user as question
     tags: [String], // tags
     category: [String], // question category e.g.. array, linkedList

@@ -9,3 +9,17 @@ export interface RequestDefention extends Request {
   };
   admin: Object;
 }
+
+// question body data
+export interface QuestionBody {
+  question: string;
+  code: string;
+  title: string;
+  language: string;
+  type: string;
+  score: string;
+  answer: string[];
+  tags: [];
+  options: [];
+  category: [];
+}

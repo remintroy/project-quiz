@@ -9,13 +9,16 @@ app.get(baseUrl + "/", (req, res) => {
   res.send({ error: false, data: "admin router is working" });
 });
 
-app.post(baseUrl + "/questions/add", async (req, res) => {
+app.post(baseUrl + "/question/add", async (req, res) => {
+  let data: any;
+  let isError = false;
   try {
-    const data = await addQuestion(req.body);
-    res.send({ error: false, data });
-  } catch (error) {
-    res.send({ error: true, data: error });
+    data = await addQuestion(req.body);
+  } catch (err) {
+    isError = true;
+    data = err;
   }
+  res.send({ error: isError, data: data });
 });
 
 export default app;
